@@ -17,9 +17,9 @@ const Login = () => {
       username,
       password,
     };
-    fetch('/login', {
+    fetch(`/login`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user),
     }).then((res) => {
       if (res.ok) {
@@ -27,7 +27,7 @@ const Login = () => {
           navigate(`/users/${user.id}`);
         });
       } else {
-        res.json().then((user) => setErrors(user.errors));
+        res.json().then((json) => setErrors(json.errors));
       }
     });
   };
@@ -39,7 +39,9 @@ const Login = () => {
 
   return (
     <>
-      <div><h1>Login</h1></div>
+      <div>
+        <h1>Login</h1>
+      </div>
       <br />
       <form onSubmit={handleSubmit}>
         <label>Username: </label>
