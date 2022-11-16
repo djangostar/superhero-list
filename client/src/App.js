@@ -28,15 +28,16 @@ function App() {
         });
       } else {
         res.json().then((data) => setErrors(data.error));
+        console.log(errors)
       }
     });
   }, []);
 
-  useEffect(() => {
-    fetch('/reviews')
-      .then((res) => res.json())
-      .then((reviews) => setReviews(reviews));
-  }, []);
+  // useEffect(() => {
+  //   fetch('/reviews')
+  //     .then((res) => res.json())
+  //     .then((reviews) => setReviews(reviews));
+  // }, []);
 
   const navigate = useNavigate();
 
@@ -78,17 +79,20 @@ function App() {
         updateUser={updateUser}
       />
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/signup' element={<Signup signup={signup} />} />
+        <Route
+          path='/signup'
+          element={<Signup updateUser={updateUser} signup={signup} />}
+        />
         <Route path='/login' element={<Login login={login} />} />
-        <Route path='superheros' element={<HeroContainer />} />
-        <Route path='/superheros/:id' element={<HeroDetails />} />
-        <Route path='supeheros/new' element={<HeroForm />} />
+        <Route path='/superheroes' element={<HeroContainer />} />
+        <Route path='/superheroes/:id' element={<HeroDetails />} />
+        <Route path='/superheroes/new' element={<HeroForm />} />
         <Route
           path='/reviews'
           element={<ReviewContainer reviews={reviews} />}
         />
         <Route path='/reviews/:id' element={<ReviewDetails />} />
+        <Route path='/' element={<Home />} />
       </Routes>
     </div>
   );

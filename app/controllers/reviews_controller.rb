@@ -5,8 +5,10 @@ class ReviewsController < ApplicationController
     render json: reviews
   end
 
-  def show
-  end
+  # def show
+  #   review = find_review
+
+  # end
 
   def create
   end
@@ -18,6 +20,10 @@ class ReviewsController < ApplicationController
   end
 
   private
+
+  def find_review
+    Review.find_by(params[:id])
+  end
 
   def review_params
     params.permit(:input, :score, :user_id, :superhero_id)

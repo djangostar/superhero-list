@@ -13,8 +13,8 @@ class ApplicationController < ActionController::API
   end
 
   def render_unprocessable_entity(invalid)
-  render json: { errors: invalid.record.errors }, status:
-  :unprocessable_entity
+    render json: { errors: invalid.record.errors }, status:
+    unprocessable_entity
   end
 
   def render_not_found(error)

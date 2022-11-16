@@ -16,18 +16,21 @@ const NavBar = ({ user, updateUser, loggedIn, logout }) => {
   if (loggedIn) {
     return (
       <div>
-        <h1>Hello {user.username}</h1>
-        <br />
+        {user ? <h1>Hello {user.username}</h1> : null}
         <button onClick={handleLogOut}>Logout</button>
-        <NavLink to='/'>
-          <button>Home</button>
+        <NavLink to='/superheroes'>
+          <button>Superheroes</button>
         </NavLink>
+
         <hr />
       </div>
     );
   } else {
     return (
       <div>
+        <NavLink to='/'>
+          <button>Home</button>
+        </NavLink>
         <NavLink to='/signup'>
           <button>Sign Up</button>
         </NavLink>

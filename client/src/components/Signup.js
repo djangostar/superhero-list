@@ -2,28 +2,29 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Signup = ({ updateUser, signup }) => {
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-    passwordCornfirmation: '',
-  });
+  
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
-  const { username, password, passwordConfirmation } = formData;
-
   function handleSubmit(e) {
     e.preventDefault();
-    const user = {
-      username,
-      password,
-      passwordConfirmation,
-    };
+    
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries())
+    if (data.password === data.password_confirmation) {
+      
+    
+
+    const payload = {
+      username: data.username,
+      password: data.password,
+      password_confirmation: data.password_confirmation
+    }
 
     fetch('/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(user),
+      body: JSON.stringify(payload),
     }).then((res) => {
       if (res.ok) {
         res.json().then((user) => {
@@ -35,12 +36,9 @@ const Signup = ({ updateUser, signup }) => {
         res.json().then((json) => setErrors(Object.entries(json.errors)));
       }
     });
+  } else alert('fuck you')
   }
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -49,23 +47,17 @@ const Signup = ({ updateUser, signup }) => {
         <input
           type='text'
           name='username'
-          value={username}
-          onChange={handleChange}
         />
         <br />
         <label>Password: </label>
         <input
           type='password'
           name='password'
-          value={password}
-          onChange={handleChange}
         />
         <label>Confirm Password: </label>
         <input
           type='password'
           name='password_confirmation'
-          value={passwordConfirmation}
-          onChange={handleChange}
         />
         <input type='submit' value='Sign Up!' />
       </form>
