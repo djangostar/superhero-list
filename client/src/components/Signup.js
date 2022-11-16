@@ -20,14 +20,14 @@ const Signup = ({ updateUser, signup }) => {
       passwordConfirmation,
     };
 
-    fetch('/users', {
+    fetch('/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user),
     }).then((res) => {
       if (res.ok) {
         res.json().then((user) => {
-          signup(user)
+          signup(user);
           updateUser(user);
           navigate('/');
         });

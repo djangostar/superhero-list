@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Login = ({login, updateUser}) => {
+const Login = ({ login }) => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -17,7 +17,7 @@ const Login = ({login, updateUser}) => {
       username,
       password,
     };
-    
+
     fetch(`/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

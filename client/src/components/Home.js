@@ -1,9 +1,7 @@
 import React from 'react';
 
-const Home = ({ username }) => {
-   return (
-    <div>Home</div>
-   )
+const Home = () => {
+  return <div>Home</div>;
   //   <div>
   //     <h1>{user.username}</h1>
   //     <h3>My Superhero Reviews</h3>
@@ -15,7 +13,6 @@ const Home = ({ username }) => {
   //       ))}
   //     </ul>
   //   </div>
-  
 };
 
 export default Home;

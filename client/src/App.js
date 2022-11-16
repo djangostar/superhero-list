@@ -14,7 +14,7 @@ import ReviewDetails from './components/ReviewDetails';
 function App() {
   const [user, setUser] = useState({});
   const [reviews, setReviews] = useState([]);
-  const [superheros, setSuperHeros] = useState([]);
+  // const [superheros, setSuperHeros] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [errors, setErrors] = useState(false);
@@ -24,7 +24,7 @@ function App() {
       if (res.ok) {
         res.json().then((data) => {
           setUser(data);
-          data.error ? setLoggedIn(false) : setLoggedIn(true);
+          setLoggedIn(true);
         });
       } else {
         res.json().then((data) => setErrors(data.error));
@@ -38,19 +38,11 @@ function App() {
       .then((reviews) => setReviews(reviews));
   }, []);
 
-  
-
-  const fetchSuperHeros = () => {
-    fetch('/superheros')
-      .then(res => res.json())
-      .then(heros => setSuperHeros(heros));
-  }
   const navigate = useNavigate();
 
   const login = (user) => {
     setUser(user);
     setLoggedIn(true);
-    navigate('/');
   };
 
   const logout = () => {
@@ -87,20 +79,15 @@ function App() {
       />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route
-          path='/signup'
-          element={<Signup signup={signup} updateUser={updateUser} />}
-        />
-        <Route
-          path='/login'
-          element={
-            <Login login={login} loggedIn={loggedIn} updateUser={updateUser} />
-          }
-        />
+        <Route path='/signup' element={<Signup signup={signup} />} />
+        <Route path='/login' element={<Login login={login} />} />
         <Route path='superheros' element={<HeroContainer />} />
         <Route path='/superheros/:id' element={<HeroDetails />} />
         <Route path='supeheros/new' element={<HeroForm />} />
-        <Route path='/reviews' element={<ReviewContainer />} />
+        <Route
+          path='/reviews'
+          element={<ReviewContainer reviews={reviews} />}
+        />
         <Route path='/reviews/:id' element={<ReviewDetails />} />
       </Routes>
     </div>
