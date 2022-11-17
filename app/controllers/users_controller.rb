@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   #Get Current User
   def show
-    user = User.find_by(id: params[:id])
+    user = User.find_by(params[:id])
     render json: user
   end
 

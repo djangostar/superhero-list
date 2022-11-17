@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/user';
 
-const NavBar = ({ user, updateUser, loggedIn, logout }) => {
+const NavBar = () => {
+  const { user, logout, loggedIn } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleLogOut = () => {
     fetch('/logout', {
       method: 'DELETE',
     });
-    updateUser('');
     logout();
     navigate('/login');
   };

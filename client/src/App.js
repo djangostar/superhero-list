@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { UserProvider } from './context/user'
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './components/Home';
 import NavBar from './components/NavBar';
@@ -12,26 +13,25 @@ import ReviewContainer from './components/ReviewContainer';
 import ReviewDetails from './components/ReviewDetails';
 
 function App() {
-  const [user, setUser] = useState({});
-  const [reviews, setReviews] = useState([]);
+  // const [user, setUser] = useState({});
+  // const [reviews, setReviews] = useState([]);
   // const [superheros, setSuperHeros] = useState([]);
-  const [currentUser, setCurrentUser] = useState({});
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [errors, setErrors] = useState(false);
+  // const [currentUser, setCurrentUser] = useState({});
+  // const [errors, setErrors] = useState(false);
 
-  useEffect(() => {
-    fetch('/me').then((res) => {
-      if (res.ok) {
-        res.json().then((data) => {
-          setUser(data);
-          setLoggedIn(true);
-        });
-      } else {
-        res.json().then((data) => setErrors(data.error));
-        console.log(errors)
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetch('/me').then((res) => {
+  //     if (res.ok) {
+  //       res.json().then((data) => {
+  //         setUser(data);
+  //         setLoggedIn(true);
+  //       });
+  //     } else {
+  //       res.json().then((data) => setErrors(data.error));
+  //       console.log(errors)
+  //     }
+  //   });
+  // }, []);
 
   // useEffect(() => {
   //   fetch('/reviews')
@@ -39,61 +39,49 @@ function App() {
   //     .then((reviews) => setReviews(reviews));
   // }, []);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const login = (user) => {
-    setUser(user);
-    setLoggedIn(true);
-  };
+  // const login = (user) => {
+  //   setUser(user);
+  //   setLoggedIn(true);
+  // };
 
-  const logout = () => {
-    setUser({});
-    setLoggedIn(false);
-    fetch('/logout', {
-      method: 'DELETE',
-    }).then(() => {
-      setLoggedIn(false);
-      setUser({});
-    });
-    navigate('/');
-  };
+  // const logoutUser = () => {
+  //   fetch('/logout', {
+  //     method: 'DELETE',
+  //   }).then(() => {
+  //     logout()
+  //   });
+  //   navigate('/');
+  // };
 
-  const signup = (user) => {
-    setUser(user);
-    setLoggedIn(true);
-  };
+  // const signup = (user) => {
+  //   setUser(user);
+  //   setLoggedIn(true);
+  // };
 
-  const updateUser = (user) => {
-    setCurrentUser(user);
-    setLoggedIn(true);
-  };
+  // const updateUser = (user) => {
+  //   setCurrentUser(user);
+  //   setLoggedIn(true);
+  // };
 
-  if (errors) return <h1>{errors}</h1>;
+  // if (errors) return <h1>{errors}</h1>;
 
   return (
     <div className='App'>
-      <NavBar
-        user={user}
-        logout={logout}
-        loggedIn={loggedIn}
-        updateUser={updateUser}
-      />
-      <Routes>
-        <Route
-          path='/signup'
-          element={<Signup updateUser={updateUser} signup={signup} />}
-        />
-        <Route path='/login' element={<Login login={login} />} />
-        <Route path='/superheroes' element={<HeroContainer />} />
-        <Route path='/superheroes/:id' element={<HeroDetails />} />
-        <Route path='/superheroes/new' element={<HeroForm />} />
-        <Route
-          path='/reviews'
-          element={<ReviewContainer reviews={reviews} />}
-        />
-        <Route path='/reviews/:id' element={<ReviewDetails />} />
-        <Route path='/' element={<Home />} />
-      </Routes>
+      <UserProvider>
+        <NavBar />
+        <Routes>
+          <Route path='/signup'element={<Signup />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/superheroes' element={<HeroContainer />} />
+          <Route path='/superheroes/:id' element={<HeroDetails />} />
+          <Route path='/superheroes/new' element={<HeroForm />} />
+          <Route path='/reviews' element={<ReviewContainer />} />
+          <Route path='/reviews/:id' element={<ReviewDetails />} />
+          <Route path='/' element={<Home />} />
+        </Routes>
+      </UserProvider>
     </div>
   );
 }
