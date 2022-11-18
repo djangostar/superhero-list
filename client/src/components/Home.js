@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../context/user';
 
-const Home = (user, loggedIn) => {
-  return (
-    <div>
-      <h1>Home</h1>
-    </div>
-  );
+const Home = () => {
+  // const { user, loggedIn, reviews } = useContext(UserContext);
+  // console.log(user, reviews)
+
+
+  // const loggedInDisplay = () => (
   //   <div>
   //     <h1>{user.username}</h1>
   //     <h3>My Superhero Reviews</h3>
@@ -17,6 +18,19 @@ const Home = (user, loggedIn) => {
   //       ))}
   //     </ul>
   //   </div>
+  // );
+
+  // const loggedOutDisplay = () => (
+  //   <div>
+  //     <h1>Welcome!</h1>
+  //   </div>
+  // );
+
+  // return loggedIn ? loggedInDisplay() : loggedOutDisplay();
+
+  return (
+    <div>H</div>
+  )
 };
 
 export default Home;

@@ -11,6 +11,7 @@ import HeroContainer from './components/HeroContainer';
 import HeroForm from './components/HeroForm';
 import ReviewContainer from './components/ReviewContainer';
 import ReviewDetails from './components/ReviewDetails';
+import ReviewForm from './components/ReviewForm';
 
 function App() {
   // const [user, setUser] = useState({});
@@ -74,11 +75,12 @@ function App() {
         <Routes>
           <Route path='/signup'element={<Signup />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/superheroes' element={<HeroContainer />} />
-          <Route path='/superheroes/:id' element={<HeroDetails />} />
-          <Route path='/superheroes/new' element={<HeroForm />} />
-          <Route path='/reviews' element={<ReviewContainer />} />
-          <Route path='/reviews/:id' element={<ReviewDetails />} />
+          <Route path='/all_heroes' element={<HeroContainer />} />
+          <Route path='/this_hero/:id' element={<HeroDetails />} />
+          <Route path='/all_heroes/new' element={<HeroForm />} />
+          <Route path='/all_reviews' element={<ReviewContainer />} />
+          <Route path='/this_review/:id' element={<ReviewDetails />} />
+          <Route path='/all_reviews/new' element={<ReviewForm />} />
           <Route path='/' element={<Home />} />
         </Routes>
       </UserProvider>

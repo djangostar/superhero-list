@@ -14,33 +14,37 @@ const NavBar = () => {
     navigate('/login');
   };
 
-  if (loggedIn) {
-    return (
-      <div>
-        {user ? <h1>Hello {user.username}</h1> : null}
-        <button onClick={handleLogOut}>Logout</button>
-        <NavLink to='/superheroes'>
-          <button>Superheroes</button>
-        </NavLink>
+  const loggedInDisplay = (
+    <div>
+      {user ? <h1>Hello {user.username}</h1> : null}
+      <button onClick={handleLogOut}>Logout</button>
+      <NavLink to='/'>
+        <button>Home</button>
+      </NavLink>
+      <NavLink to='/all_heroes'>
+        <button>Superheroes</button>
+      </NavLink>
+      <hr />
+    </div>
+  );
 
-        <hr />
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <NavLink to='/'>
-          <button>Home</button>
-        </NavLink>
-        <NavLink to='/signup'>
-          <button>Sign Up</button>
-        </NavLink>
-        <NavLink to='/login'>
-          <button>Log In</button>
-        </NavLink>
-      </div>
-    );
-  }
+  const loggedOutDisplay = (
+    <div>
+      <NavLink to='/'>
+        <button>Home</button>
+      </NavLink>
+      <NavLink to='/signup'>
+        <button>Sign Up</button>
+      </NavLink>
+      <NavLink to='/login'>
+        <button>Log In</button>
+      </NavLink>
+      <hr />
+
+  </div>
+  );
+
+  return loggedIn ? loggedInDisplay : loggedOutDisplay;
 };
 
 export default NavBar;

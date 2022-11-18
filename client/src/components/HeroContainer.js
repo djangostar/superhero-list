@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import {useNavigate} from 'react-router-dom';
-import HeroForm from './HeroForm'
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/user'
+import HeroForm from './HeroForm';
 
 const HeroContainer = () => {
-const navigate = useNavigate()
-  const [allHeroes, setAllHeroes] = useState([]);
-
-  useEffect(() => {
-    fetch('/all_heroes')
-      .then((res) => res.json())
-      .then((data) => setAllHeroes(data));
-  }, []);
+  const navigate = useNavigate();
+  // const [allHeroes, setAllHeroes] = useState([]);
+  const { allHeroes } = useContext(UserContext)
+  console.log(allHeroes)
+  // useEffect(() => {
+  //   fetch('/all_heroes')
+  //     .then((res) => res.json())
+  //     .then((data) => setAllHeroes(data));
+  // }, []);
 
   return (
     <div
@@ -37,7 +39,9 @@ const navigate = useNavigate()
             }}
           >
             {hero.full_name}
-            <button onClick={() => navigate(`/superheros/${hero.id}`)}>Details</button>
+            <button onClick={() => navigate(`/this_hero/${hero.id}`)}>
+              Details
+            </button>
           </div>
         ))}
     </div>
