@@ -1,17 +1,17 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../context/user'
+import { UserContext } from '../context/user';
 
 const Login = () => {
-  const { login } = useContext(UserContext)
-  const [formData, setFormData] = useState({
+  const { user, login } = useContext(UserContext);
+  const [form, formData] = useState({
     username: '',
     password: '',
-  });
+  })
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
-  const { username, password } = formData;
+  const { username, password } = form;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ const Login = () => {
     }).then((res) => {
       if (res.ok) {
         res.json().then((user) => {
-          login(user)
+          login(user);
           navigate('/');
         });
       } else {
@@ -38,11 +38,11 @@ const Login = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    formData({ ...form, [name]: value });
   };
 
   return (
-    <>
+    <div>
       <div>
         <h1>Login</h1>
       </div>
@@ -65,7 +65,7 @@ const Login = () => {
         <input type='submit' value='Log in!' />
       </form>
       {errors ? <div className='login-erros'>{errors}</div> : null}
-    </>
+    </div>
   );
 };
 

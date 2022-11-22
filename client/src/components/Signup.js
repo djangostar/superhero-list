@@ -33,7 +33,7 @@ const Signup = ({ updateUser }) => {
           res.json().then((json) => setErrors(Object.entries(json.errors)));
         }
       });
-    } else alert('fuck you');
+    } else alert('Wrong Username or Password');
   }
 
   return (

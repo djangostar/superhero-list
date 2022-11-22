@@ -5,12 +5,13 @@ Rails.application.routes.draw do
   
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  
   post '/signup', to: 'users#create'
   get '/me', to: 'users#show'
 
   get '/all_heroes', to: 'superheros#index'
   get '/this_hero/:id', to: 'superheros#show'
-  post '/all_heroes/new', to: 'superheros#create'
+  post '/create_hero', to: 'superheros#create'
 
   get '/all_reviews', to: 'reviews#index'
   get '/this_review/:id', to: 'reviews#show'
