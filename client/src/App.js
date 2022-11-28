@@ -2,10 +2,12 @@ import React from 'react';
 import { UserProvider } from './context/user';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import Home from './components/Home';
-import NavBar from './components/NavBar';
-import Login from './components/Login';
-import Signup from './components/Signup';
+import Home from './components/HomePage/Home';
+import NavBar from './components/Navigation/NavBar';
+import Login from './components/Authetication/Login';
+import Signup from './components/Authetication/Signup';
+import HeroContainer from './components/Heroes/HeroContainer';
+import MySuperheroes from './components/Heroes/MySuperheroes';
 
 function App() {
   // const [user, setUser] = useState({});
@@ -67,9 +69,11 @@ function App() {
       <UserProvider>
         <NavBar />
         <Routes>
+          <Route path='/' element={<Home />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/' element={<Home />} />
+          <Route path='/all_heroes' element={<HeroContainer />} />
+          <Route path='/my_heroes' element={<MySuperheroes />} />
         </Routes>
       </UserProvider>
     </div>

@@ -4,7 +4,7 @@ const UserContext = React.createContext();
 
 function UserProvider({ children }) {
   const [user, setUser] = useState({});
-  const [allReviews, setReviews] = useState([]);
+  // const [allReviews, setReviews] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [allHeroes, setAllHeroes] = useState([]);
   const [errors, setErrors] = useState([]);
@@ -14,8 +14,7 @@ function UserProvider({ children }) {
       if (res.ok) {
         res.json().then((data) => {
           setUser(data);
-          fetchReviews();
-          fetchSuperHeroes();
+          fetchSuperHeroes()
           data.error ? setLoggedIn(false) : setLoggedIn(true);
         });
       } else {
@@ -24,13 +23,13 @@ function UserProvider({ children }) {
     });
   }, []);
 
-  const fetchReviews = () => {
-    fetch('/all_reviews')
-      .then((res) => res.json())
-      .then((data) => {
-        setReviews(data);
-      });
-  };
+  // const fetchReviews = () => {
+  //   fetch('/all_reviews')
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setReviews(data);
+  //     });
+  // };
 
   const fetchSuperHeroes = () => {
     fetch('/all_heroes')
@@ -55,19 +54,19 @@ function UserProvider({ children }) {
     setLoggedIn(true);
   };
 
-  const addReview = (review) => {
-    fetch('/create_review', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/jsonn',
-      },
-      body: JSON.stringify(review),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setReviews([...allReviews, data]);
-      });
-  };
+  // const addReview = (review) => {
+  //   fetch('/create_review', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/jsonn',
+  //     },
+  //     body: JSON.stringify(review),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setReviews([...allReviews, data]);
+  //     });
+  // };
 
   const addSuperHero = (hero) => {
     fetch('/create_hero', {
@@ -83,20 +82,19 @@ function UserProvider({ children }) {
     })
   };
 
-  if (errors) return <h1>{errors}</h1>;
+  // if (errors) return <h1>{errors}</h1>;
   return (
     <UserContext.Provider
       value={{
         user,
         loggedIn,
-        allReviews,
+        // allReviews,
         allHeroes,
         errors,
         login,
         logout,
         signup,
-        addReview,
-        addSuperHero,
+        addSuperHero
       }}
     >
       {children}

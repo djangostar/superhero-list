@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../context/user';
+import { UserContext } from '../../context/user';
 
 const Login = () => {
-  const { user, login } = useContext(UserContext);
-  const [form, formData] = useState({
+  const { login } = useContext(UserContext);
+  const [form, setForm] = useState({
     username: '',
     password: '',
-  })
+  });
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const Login = () => {
       password,
     };
 
-    fetch(`/login`, {
+    fetch('/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user),
@@ -38,7 +38,7 @@ const Login = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    formData({ ...form, [name]: value });
+    setForm({ ...form, [name]: value });
   };
 
   return (
@@ -53,15 +53,19 @@ const Login = () => {
           type='text'
           name='username'
           value={username}
+          placeholder='Username'
           onChange={handleChange}
-        />
+        />{' '}
+        <br />
         <label>Password: </label>
         <input
           type='password'
           name='password'
           value={password}
+          placeholder='Password'
           onChange={handleChange}
-        />
+        />{' '}
+        <br />
         <input type='submit' value='Log in!' />
       </form>
       {errors ? <div className='login-erros'>{errors}</div> : null}

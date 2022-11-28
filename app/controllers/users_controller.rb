@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_user, only: [:create]
+  before_action :authorize_user
 
   #Signup
   def index
@@ -9,13 +9,17 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create!(user_params)
-    session[:user_id] = @user.id # this is when user in is session
-    render json: @user, status: :created
+    if @user.valid?
+      session[:user_id] = @user.id
+      render json: @user, status: :created
+    else
+      render json: {errors: @user.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   #Get Current User
   def show
-    @user = User.find_by(id: params[:id])
+    @user = User.find_by(params[:id])
     if @user
       render json: @user, status: :ok
     else
@@ -25,10 +29,6 @@ class UsersController < ApplicationController
 
   private
 
-  def find_user 
-    @user = User.find(params[:id])
-  end
-  
   def user_params
     params.permit(:username, :password, :password_confirmation)
   end

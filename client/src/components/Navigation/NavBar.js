@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { UserContext } from '../context/user';
+import { UserContext } from '../../context/user';
 
 const NavBar = () => {
   const { user, logout, loggedIn } = useContext(UserContext);
@@ -21,8 +21,8 @@ const NavBar = () => {
       <NavLink to='/'>
         <button>Home</button>
       </NavLink>
-      <NavLink to='/all_heroes'>
-        <button>Superheroes</button>
+      <NavLink to='/my_heroes'>
+        <button>My Superheroes</button>
       </NavLink>
       <hr />
     </div>
@@ -40,8 +40,7 @@ const NavBar = () => {
         <button>Log In</button>
       </NavLink>
       <hr />
-
-  </div>
+    </div>
   );
 
   return loggedIn ? loggedInDisplay : loggedOutDisplay;

@@ -1,9 +1,9 @@
 class ReviewsController < ApplicationController
-  before_action :find_review, only: [:show, :update, :destroy]
-  before_action :authorize_user, only: [:update, :destroy]
+  before_action :authorize_user
 
   def index
-    @reviews = Review.all
+    @user = current_user
+    @reviews = @user.reviews
     render json: @reviews
   end
 
@@ -41,8 +41,5 @@ class ReviewsController < ApplicationController
     params.permit(:input, :score, :user_id, :superhero_id)
   end
 
-  def authorize_user
-    permitted = current_user.id == @review.user_id
-    render json: {errors:{User: "Has not reviewed this Superhero"}}, status: :forbidden unless permitted
-  end
+ 
 end

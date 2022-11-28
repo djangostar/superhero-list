@@ -1,25 +1,23 @@
 class SuperherosController < ApplicationController
-  skip_before_action :authenticate_user
-  before_action :find_superhero, only: [:show, :update, :destroy]
-  before_action :authorize_user, only: [:update, :destroy]
-
+  # skip_before_action :authenticate_user
+  # before_action :find_superhero, only: [:show, :update, :destroy]
+  before_action :authorize_user
+  
   def index
     @superheros = Superhero.all
     render json: @superheros
   end
 
   def show
-    render json: @hero, include: :reviews, status: :ok
+    @user = User.find_by(id: session[:user_id])
+    @hero = @user.superheros.find_by(id: params[:id])
+    render json: @hero, include: :reviews
   end
 
   def create
-    @hero = Superhero.new(superhero_params)
-    @hero.user_id = session[:user_id]
-    if @hero.save
-      render json: @hero, status: :created
-    else
-      render json: @hero.errors.full_messages[0], status: 422
-    end
+    @user = User.find_by(id: session[:user_id])
+    @hero = @user.superheros.create(id: params[:id])
+    render json: @hero
   end
 
   def destroy
@@ -36,8 +34,7 @@ class SuperherosController < ApplicationController
     @hero = Superhero.find(params[:id])
   end
   
-  def authorize_user
-    permitted = current_user.id == @hero.user_id
-    render json: { errors: { User: "Did not review this superhero"}}, status: :forbidden unless permitted
-  end
+  # def authorize_user
+  #   return render json: {error: 'Not Authorized' }, status: :unathorized unless session.include? :user_id
+  # end
 end
