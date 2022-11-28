@@ -5,22 +5,44 @@ const UserContext = React.createContext();
 function UserProvider({ children }) {
   const [user, setUser] = useState({});
   // const [allReviews, setReviews] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [allHeroes, setAllHeroes] = useState([]);
   const [errors, setErrors] = useState([]);
 
+  const session_endpoint = '/session';
+
   useEffect(() => {
-    fetch('/me').then((res) => {
-      if (res.ok) {
-        res.json().then((data) => {
-          setUser(data);
-          fetchSuperHeroes()
-          data.error ? setLoggedIn(false) : setLoggedIn(true);
-        });
-      } else {
-        res.json().then((data) => setErrors(data.error));
+    (async function () {
+      try {
+        const response = await fetch(session_endpoint).catch(handleError);
+        // if (response.ok) {
+        const data = await response.json();
+        console.log({ data });
+        // }
+        if (data.error) {
+          handleError(data.error);
+        }
+      } catch (error) {
+        handleError(error);
       }
-    });
+    })();
+
+    function handleError(error) {
+      const errorsCopy = [...errors, error];
+      setErrors(errorsCopy);
+    }
+    // fetch(session_endpoint).then((res) => {
+    //   if (res.ok) {
+    //     res.json().then((data) => {
+    //       setUser(data);
+    //       fetchSuperHeroes();
+    //       data.error ? setIsLoggedIn(false) : setIsLoggedIn(true);
+    //     });
+    //   } else {
+    //     res.json().then((data) => setErrors(data.error));
+    //   }
+    // });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // const fetchReviews = () => {
@@ -41,18 +63,19 @@ function UserProvider({ children }) {
 
   const login = (user) => {
     setUser(user);
-    setLoggedIn(true);
+    setIsLoggedIn(true);
   };
 
   const logout = () => {
     setUser({});
-    setLoggedIn(false);
+    setIsLoggedIn(false);
   };
 
-  const signup = (user) => {
+
+  const ctxSetUserAndLogIn = (user) => {
     setUser(user);
-    setLoggedIn(true);
-  };
+    setIsLoggedIn(true);
+  }
 
   // const addReview = (review) => {
   //   fetch('/create_review', {
@@ -76,10 +99,10 @@ function UserProvider({ children }) {
       },
       body: JSON.stringify(hero),
     })
-    .then((res) => res.json())
-    .then((data) => {
-      setAllHeroes([...allHeroes, data])
-    })
+      .then((res) => res.json())
+      .then((data) => {
+        setAllHeroes([...allHeroes, data]);
+      });
   };
 
   // if (errors) return <h1>{errors}</h1>;
@@ -87,14 +110,14 @@ function UserProvider({ children }) {
     <UserContext.Provider
       value={{
         user,
-        loggedIn,
+        isLoggedIn,
         // allReviews,
         allHeroes,
         errors,
         login,
         logout,
-        signup,
-        addSuperHero
+        addSuperHero,
+        ctxSetUserAndLogIn
       }}
     >
       {children}

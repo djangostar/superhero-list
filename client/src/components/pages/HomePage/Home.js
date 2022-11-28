@@ -1,9 +1,13 @@
-import React, { useContext } from 'react';
-import { UserContext } from '../../context/user';
-import HeroContainer from '../Heroes/HeroContainer';
+import React, { useContext, useEffect } from 'react';
+import { UserContext } from '../../../context/user';
+import HeroContainer from '../../Heroes/HeroContainer';
 
 const Home = () => {
-  const { user, loggedIn } = useContext(UserContext);
+  const { user, isLoggedIn } = useContext(UserContext);
+
+  useEffect(() => {
+    console.log({user, isLoggedIn})
+  }, [isLoggedIn, user])
 
   const loggedInDisplay = () => (
     <div>
@@ -22,11 +26,8 @@ const Home = () => {
     </div>
   );
 
-  return loggedIn ? loggedInDisplay() : loggedOutDisplay();
+  return isLoggedIn ? loggedInDisplay() : loggedOutDisplay();
 
-  //   return (
-  //     <div>H</div>
-  //   )
 };
 
 export default Home;
