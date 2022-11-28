@@ -34,7 +34,7 @@ const Signup = () => {
           navigate('/');
         });
       } else {
-        res.json().then((json) => setErrors(Object.entries(json.errors)));
+        res.json().then((json) => setErrors(json.errors));
       }
     });
   }
