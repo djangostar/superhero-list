@@ -1,15 +1,16 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/user';
+
 export default function Signup() {
   const { ctxSetUserAndLogin } = useContext(UserContext);
+  const [errors, setErrors] = useState([]);
   const [form, setForm] = useState({
     username: '',
     password: '',
     passwordConfirmation: '',
   });
 
-  const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
   const { username, password, passwordConfirmation } = form;
 

@@ -1,7 +1,7 @@
 class SuperherosController < ApplicationController
   # skip_before_action :authenticate_user
   # before_action :find_superhero, only: [:show, :update, :destroy]
-  before_action :authorize_user
+  #before_action :authorize_user
   
   def index
     @superheros = Superhero.all
@@ -10,13 +10,13 @@ class SuperherosController < ApplicationController
 
   def show
     @user = User.find_by(id: session[:user_id])
-    @hero = @user.superheros.find_by(id: params[:id])
-    render json: @hero, include: :reviews
+    @hero = Superhero.find_by(id: params[:id])
+    render json: @hero
   end
 
   def create
     @user = User.find_by(id: session[:user_id])
-    @hero = @user.superheros.create(id: params[:id])
+    @hero = Superhero.create(superhero_params)
     render json: @hero
   end
 

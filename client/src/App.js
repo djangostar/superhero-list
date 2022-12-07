@@ -7,7 +7,9 @@ import Login from './components/Authetication/Login';
 import Signup from './components/Authetication/Signup';
 import HeroContainer from './components/Heroes/HeroContainer';
 import MySuperheroes from './components/Heroes/MySuperheroes';
+import HeroForm from './components/Forms/HeroForm'
 import Home from './components/pages/HomePage/Home';
+import HeroDetails from './components/Heroes/HeroDetails';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/all_heroes' element={<HeroContainer />} />
           <Route path='/my_heroes' element={<MySuperheroes />} />
+          <Route path='/create_hero' element={<HeroForm />} />
+          <Route path='/hero/:id' element={<HeroDetails />} />
         </Routes>
       </UserProvider>
     </div>

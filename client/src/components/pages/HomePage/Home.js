@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../../../context/user';
-import HeroContainer from '../../Heroes/HeroContainer';
+import MySuperheroes from '../../Heroes/MySuperheroes';
 
 const Home = () => {
   const { user, isLoggedIn } = useContext(UserContext);
@@ -13,7 +13,7 @@ const Home = () => {
     <div>
       <h1>{user.username}</h1>
       <h3>
-        <HeroContainer />
+        <MySuperheroes />
       </h3>
     </div>
   );
@@ -27,7 +27,6 @@ const Home = () => {
   );
 
   return isLoggedIn ? loggedInDisplay() : loggedOutDisplay();
-
 };
 
 export default Home;

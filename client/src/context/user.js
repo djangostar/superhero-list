@@ -4,9 +4,9 @@ const UserContext = React.createContext();
 
 function UserProvider({ children }) {
   const [user, setUser] = useState({});
-  // const [allReviews, setReviews] = useState([]);
+  const [allReviews, setAllReviews] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [allHeroes, setAllHeroes] = useState([]);
+  const [heroes, setHeroes] = useState([]);
   const [errors, setErrors] = useState([]);
 
   const session_endpoint = '/session';
@@ -31,6 +31,7 @@ function UserProvider({ children }) {
       const errorsCopy = [...errors, error];
       setErrors(errorsCopy);
     }
+
     // fetch(session_endpoint).then((res) => {
     //   if (res.ok) {
     //     res.json().then((data) => {
@@ -53,13 +54,21 @@ function UserProvider({ children }) {
   //     });
   // };
 
-  const fetchSuperHeroes = () => {
+  useEffect(() => {
+    fetch('/all_reviews')
+      .then((res) => res.json())
+      .then((data) => {
+        setAllReviews(data);
+      });
+  }, [])
+
+  useEffect(() => {
     fetch('/all_heroes')
       .then((res) => res.json())
       .then((data) => {
-        setAllHeroes(data);
+        setHeroes(data);
       });
-  };
+  }, []);
 
   const login = (user) => {
     setUser(user);
@@ -71,11 +80,10 @@ function UserProvider({ children }) {
     setIsLoggedIn(false);
   };
 
-
-  const ctxSetUserAndLogIn = (user) => {
+  const ctxSetUserAndLogin = (user) => {
     setUser(user);
     setIsLoggedIn(true);
-  }
+  };
 
   // const addReview = (review) => {
   //   fetch('/create_review', {
@@ -101,23 +109,40 @@ function UserProvider({ children }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        setAllHeroes([...allHeroes, data]);
+        setHeroes([...heroes, data]);
       });
   };
 
+  const addReview = (review) => {
+    fetch('/add_review', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(review),
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      setAllReviews([...allReviews, data])
+    })
+  }
+  // const addHero = (hero) => {
+  //   setHeroes([...heroes, hero])
+  // }
   // if (errors) return <h1>{errors}</h1>;
   return (
     <UserContext.Provider
       value={{
         user,
         isLoggedIn,
-        // allReviews,
-        allHeroes,
+        heroes,
+        allReviews,
         errors,
         login,
         logout,
         addSuperHero,
-        ctxSetUserAndLogIn
+        addReview,
+        ctxSetUserAndLogin,
       }}
     >
       {children}
