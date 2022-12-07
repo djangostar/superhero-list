@@ -2,15 +2,15 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/user';
 
-const Signup = () => {
-  const { signup } = useContext(UserContext);
+export default function Signup() {
+  const { ctxSetUserAndLogin } = useContext(UserContext);
+  const [errors, setErrors] = useState([]);
   const [form, setForm] = useState({
     username: '',
     password: '',
     passwordConfirmation: '',
   });
 
-  const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
   const { username, password, passwordConfirmation } = form;
 
@@ -20,7 +20,7 @@ const Signup = () => {
     const user = {
       username,
       password,
-      passwordConfirmation,
+      password_confirmation: passwordConfirmation,
     };
 
     fetch('/signup', {
@@ -28,13 +28,14 @@ const Signup = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user),
     }).then((res) => {
+      console.log(res);
       if (res.ok) {
         res.json().then((user) => {
-          signup(user);
+          ctxSetUserAndLogin(user);
           navigate('/');
         });
       } else {
-        res.json().then((json) => setErrors(Object.entries(json.errors)));
+        res.json().then((json) => setErrors(json.errors));
       }
     });
   }
@@ -77,6 +78,4 @@ const Signup = () => {
       {errors}
     </div>
   );
-};
-
-export default Signup;
+}

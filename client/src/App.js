@@ -2,78 +2,28 @@ import React from 'react';
 import { UserProvider } from './context/user';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import Home from './components/HomePage/Home';
 import NavBar from './components/Navigation/NavBar';
 import Login from './components/Authetication/Login';
 import Signup from './components/Authetication/Signup';
 import HeroContainer from './components/Heroes/HeroContainer';
 import MySuperheroes from './components/Heroes/MySuperheroes';
+import HeroForm from './components/Forms/HeroForm'
+import Home from './components/pages/HomePage/Home';
+import HeroDetails from './components/Heroes/HeroDetails';
 
 function App() {
-  // const [user, setUser] = useState({});
-  // const [reviews, setReviews] = useState([]);
-  // const [superheros, setSuperHeros] = useState([]);
-  // const [currentUser, setCurrentUser] = useState({});
-  // const [errors, setErrors] = useState(false);
-
-  // useEffect(() => {
-  //   fetch('/me').then((res) => {
-  //     if (res.ok) {
-  //       res.json().then((data) => {
-  //         setUser(data);
-  //         setLoggedIn(true);
-  //       });
-  //     } else {
-  //       res.json().then((data) => setErrors(data.error));
-  //       console.log(errors)
-  //     }
-  //   });
-  // }, []);
-
-  // useEffect(() => {
-  //   fetch('/reviews')
-  //     .then((res) => res.json())
-  //     .then((reviews) => setReviews(reviews));
-  // }, []);
-
-  // const navigate = useNavigate();
-
-  // const login = (user) => {
-  //   setUser(user);
-  //   setLoggedIn(true);
-  // };
-
-  // const logoutUser = () => {
-  //   fetch('/logout', {
-  //     method: 'DELETE',
-  //   }).then(() => {
-  //     logout()
-  //   });
-  //   navigate('/');
-  // };
-
-  // const signup = (user) => {
-  //   setUser(user);
-  //   setLoggedIn(true);
-  // };
-
-  // const updateUser = (user) => {
-  //   setCurrentUser(user);
-  //   setLoggedIn(true);
-  // };
-
-  // if (errors) return <h1>{errors}</h1>;
-
   return (
     <div className='App'>
       <UserProvider>
         <NavBar />
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<Home/>} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/login' element={<Login />} />
           <Route path='/all_heroes' element={<HeroContainer />} />
           <Route path='/my_heroes' element={<MySuperheroes />} />
+          <Route path='/create_hero' element={<HeroForm />} />
+          <Route path='/hero/:id' element={<HeroDetails />} />
         </Routes>
       </UserProvider>
     </div>
