@@ -21,6 +21,9 @@ function UserProvider({ children }) {
         // }
         if (data.error) {
           handleError(data.error);
+        } else {
+        
+          ctxSetUserAndLogin(data)
         }
       } catch (error) {
         handleError(error);
@@ -46,21 +49,13 @@ function UserProvider({ children }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const fetchReviews = () => {
-  //   fetch('/all_reviews')
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setReviews(data);
-  //     });
-  // };
-
   useEffect(() => {
     fetch('/all_reviews')
       .then((res) => res.json())
       .then((data) => {
         setAllReviews(data);
       });
-  }, [])
+  }, []);
 
   useEffect(() => {
     fetch('/all_heroes')
@@ -121,11 +116,11 @@ function UserProvider({ children }) {
       },
       body: JSON.stringify(review),
     })
-    .then((res) => res.json())
-    .then((data) => {
-      setAllReviews([...allReviews, data])
-    })
-  }
+      .then((res) => res.json())
+      .then((data) => {
+        setAllReviews([...allReviews, data]);
+      });
+  };
   // const addHero = (hero) => {
   //   setHeroes([...heroes, hero])
   // }

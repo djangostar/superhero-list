@@ -38,7 +38,7 @@ class ReviewsController < ApplicationController
   end
 
   def review_params
-    params.permit(:input, :score, :user_id, :superhero_id)
+    params.permit(:input, :score, :superhero_id)
   end
 
  
