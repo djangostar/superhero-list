@@ -22,7 +22,6 @@ function UserProvider({ children }) {
         if (data.error) {
           handleError(data.error);
         } else {
-        
           ctxSetUserAndLogin(data)
         }
       } catch (error) {
@@ -34,20 +33,7 @@ function UserProvider({ children }) {
       const errorsCopy = [...errors, error];
       setErrors(errorsCopy);
     }
-
-    // fetch(session_endpoint).then((res) => {
-    //   if (res.ok) {
-    //     res.json().then((data) => {
-    //       setUser(data);
-    //       fetchSuperHeroes();
-    //       data.error ? setIsLoggedIn(false) : setIsLoggedIn(true);
-    //     });
-    //   } else {
-    //     res.json().then((data) => setErrors(data.error));
-    //   }
-    // });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [session_endpoint, errors]);
 
   useEffect(() => {
     fetch('/all_reviews')
@@ -80,20 +66,6 @@ function UserProvider({ children }) {
     setIsLoggedIn(true);
   };
 
-  // const addReview = (review) => {
-  //   fetch('/create_review', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/jsonn',
-  //     },
-  //     body: JSON.stringify(review),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setReviews([...allReviews, data]);
-  //     });
-  // };
-
   const addSuperHero = (hero) => {
     fetch('/create_hero', {
       method: 'POST',
@@ -109,7 +81,7 @@ function UserProvider({ children }) {
   };
 
   const addReview = (review) => {
-    fetch('/add_review', {
+    fetch('/create_review', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -121,10 +93,7 @@ function UserProvider({ children }) {
         setAllReviews([...allReviews, data]);
       });
   };
-  // const addHero = (hero) => {
-  //   setHeroes([...heroes, hero])
-  // }
-  // if (errors) return <h1>{errors}</h1>;
+ 
   return (
     <UserContext.Provider
       value={{
