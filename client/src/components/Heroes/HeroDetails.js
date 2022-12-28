@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useParams, NavLink } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { UserContext } from '../../context/user';
 import ReviewForm from '../Forms/ReviewForm';
 
