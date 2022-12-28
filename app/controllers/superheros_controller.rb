@@ -8,11 +8,11 @@ class SuperherosController < ApplicationController
     render json: @superheros
   end
 
-  def show
-    @user = User.find_by(id: session[:user_id])
-    @hero = Superhero.find_by(id: params[:id])
-    render json: @hero
-  end
+  # def show
+  #   @user = User.find_by(id: session[:user_id])
+  #   @hero = Superhero.find_by(id: params[:id])
+  #   render json: @hero
+  # end
 
   def create
     @user = User.find_by(id: session[:user_id])
@@ -27,7 +27,7 @@ class SuperherosController < ApplicationController
   private 
 
   def superhero_params
-    params.permit(:full_name, :alias, :bio, :universe, :img_url, review_attributes: [:input, :score, :user_id])
+    params.permit(:full_name, :alias, :bio, :universe, :img_url, review_attributes: [:input, :score])
   end
 
   def find_superhero

@@ -21,6 +21,8 @@ function UserProvider({ children }) {
         // }
         if (data.error) {
           handleError(data.error);
+        } else {
+          ctxSetUserAndLogin(data)
         }
       } catch (error) {
         handleError(error);
@@ -31,28 +33,7 @@ function UserProvider({ children }) {
       const errorsCopy = [...errors, error];
       setErrors(errorsCopy);
     }
-
-    // fetch(session_endpoint).then((res) => {
-    //   if (res.ok) {
-    //     res.json().then((data) => {
-    //       setUser(data);
-    //       fetchSuperHeroes();
-    //       data.error ? setIsLoggedIn(false) : setIsLoggedIn(true);
-    //     });
-    //   } else {
-    //     res.json().then((data) => setErrors(data.error));
-    //   }
-    // });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // const fetchReviews = () => {
-  //   fetch('/all_reviews')
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setReviews(data);
-  //     });
-  // };
+  }, [session_endpoint, errors]);
 
   useEffect(() => {
     fetch('/all_reviews')
@@ -60,7 +41,7 @@ function UserProvider({ children }) {
       .then((data) => {
         setAllReviews(data);
       });
-  }, [])
+  }, []);
 
   useEffect(() => {
     fetch('/all_heroes')
@@ -85,20 +66,6 @@ function UserProvider({ children }) {
     setIsLoggedIn(true);
   };
 
-  // const addReview = (review) => {
-  //   fetch('/create_review', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/jsonn',
-  //     },
-  //     body: JSON.stringify(review),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setReviews([...allReviews, data]);
-  //     });
-  // };
-
   const addSuperHero = (hero) => {
     fetch('/create_hero', {
       method: 'POST',
@@ -114,22 +81,19 @@ function UserProvider({ children }) {
   };
 
   const addReview = (review) => {
-    fetch('/add_review', {
+    fetch('/create_review', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(review),
     })
-    .then((res) => res.json())
-    .then((data) => {
-      setAllReviews([...allReviews, data])
-    })
-  }
-  // const addHero = (hero) => {
-  //   setHeroes([...heroes, hero])
-  // }
-  // if (errors) return <h1>{errors}</h1>;
+      .then((res) => res.json())
+      .then((data) => {
+        setAllReviews([...allReviews, data]);
+      });
+  };
+ 
   return (
     <UserContext.Provider
       value={{

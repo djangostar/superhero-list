@@ -8,6 +8,7 @@ import Signup from './components/Authetication/Signup';
 import HeroContainer from './components/Heroes/HeroContainer';
 import MySuperheroes from './components/Heroes/MySuperheroes';
 import HeroForm from './components/Forms/HeroForm'
+import ReviewForm from './components/Forms/ReviewForm';
 import Home from './components/pages/HomePage/Home';
 import HeroDetails from './components/Heroes/HeroDetails';
 
@@ -24,6 +25,7 @@ function App() {
           <Route path='/my_heroes' element={<MySuperheroes />} />
           <Route path='/create_hero' element={<HeroForm />} />
           <Route path='/hero/:id' element={<HeroDetails />} />
+          <Route path='/create_review' element={<ReviewForm />} />
         </Routes>
       </UserProvider>
     </div>
