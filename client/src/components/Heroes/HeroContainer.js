@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { UserContext } from '../../context/user'
 import { useNavigate } from 'react-router-dom';
 import HeroForm from '../Forms/HeroForm';
+// import ReviewForm from '../Forms/ReviewForm';
 
 
 const HeroContainer = () => {
@@ -41,7 +42,9 @@ const HeroContainer = () => {
             }}
           >
             {hero.full_name}<br />
+            <img src={hero.img_url} alt='superhero' />
             <button onClick={() => navigate(`/hero/${hero.id}`)}>Details</button>
+            <button onClick={() => navigate('/create_review')}>Add a Review</button>
           </div>
         ))}
     </div>

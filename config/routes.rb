@@ -8,15 +8,13 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   
   post '/signup', to: 'users#create'
-  get '/session', to: 'users#show'
+  get '/me', to: 'users#show'
   get '/all_users', to: 'users#index'
 
   get '/all_heroes', to: 'superheros#index'
   get '/my_heroes', to: 'superheros#show'
   post '/create_hero', to: 'superheros#create'
-  
-  get '/all_reviews', to: 'reviews#index'
-  get '/review', to: 'reviews#show'
+ 
   post '/create_review', to: 'reviews#create'
   
   # Routing logic: fallback requests for React Router.

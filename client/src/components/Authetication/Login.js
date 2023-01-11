@@ -68,7 +68,8 @@ const Login = () => {
         <br />
         <input type='submit' value='Log in!' />
       </form>
-      {errors ? <div className='login-erros'>{errors}</div> : null}
+      <br/>
+      {errors ? <div className='login-erros'>{errors.map(e => <li key='e'>{e}</li>)}</div> : null}
     </div>
   );
 };

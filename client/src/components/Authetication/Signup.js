@@ -28,7 +28,7 @@ export default function Signup() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user),
     }).then((res) => {
-      console.log(res);
+      // console.log(res);
       if (res.ok) {
         res.json().then((user) => {
           ctxSetUserAndLogin(user);
@@ -39,6 +39,8 @@ export default function Signup() {
       }
     });
   }
+
+  // const errorList = errors.map(err => <li>{err}</li>)
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -75,7 +77,8 @@ export default function Signup() {
         />
         <input type='submit' value='Sign Up!' />
       </form>
-      {errors}
+      <br />
+      {errors ? <div className='login-erros'>{errors.map(err => <li>{err}</li>)}</div> : null}
     </div>
   );
 }

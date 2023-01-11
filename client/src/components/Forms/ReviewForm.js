@@ -1,8 +1,12 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../context/user';
+import { useNavigate } from 'react-router-dom';
 
 const ReviewForm = () => {
-  const { addReview, allReviews } = useContext(UserContext);
+  const { addReview } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -10,11 +14,14 @@ const ReviewForm = () => {
     const data = Object.fromEntries(formData.entries());
     const payload = {
       input: data.input,
-      score: data.score,
+      superhero_id: data.superhero_id,
     };
     addReview(payload);
+    navigate('/my_heroes');
     console.log(payload);
   };
+
+  // const reviewHero = heroes.map(hero => hero.alias)
 
   return (
     <div>
@@ -23,16 +30,15 @@ const ReviewForm = () => {
           <h1>Add a Review!</h1>
         </div>
         <label>Review: </label>
-        <input type='textarea' id='input' name='input' /> <br />
-        <label>
-          Score:
-          <select name='score_id'>
-            <option>Score</option>
-            {allReviews.map((review) => (
-              <option value={review.id}>{review.score}</option>
-            ))}
-          </select>
-        </label>
+        <textarea
+          type='text'
+          id='inputID'
+          placeholder='Review This Superhero!'
+          rows='5'
+          cols='48'
+          name='input'
+        ></textarea>
+        <br />
         <input type='submit' value='Add Review' />
       </form>
     </div>

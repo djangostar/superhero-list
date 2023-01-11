@@ -11,18 +11,21 @@ const NavBar = () => {
       method: 'DELETE',
     });
     logout();
-    navigate('/login');
+    navigate('/');
   };
 
   const loggedInDisplay = (
     <div>
-      {user ? <h1>Hello {user.username}</h1> : null}
+      {user ? <h1>Superhero Reviewer</h1> : null}
       <button onClick={handleLogOut}>Logout</button>
       <NavLink to='/'>
         <button>Home</button>
       </NavLink>
       <NavLink to='/all_heroes'>
-        <button>Superheroes</button>
+        <button>All Superheroes</button>
+      </NavLink>
+      <NavLink to='/my_heroes'>
+        <button>My Superheroes</button>
       </NavLink>
       <hr />
     </div>

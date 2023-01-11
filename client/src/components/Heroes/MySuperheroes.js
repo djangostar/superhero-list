@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+
 
 const MySuperheroes = () => {
   return (
-    <div>My Superheroes</div>
-  )
-}
+    <div>
+      <h2> My Superheroes</h2>
+    </div>
+  );
+};
 
-export default MySuperheroes
+export default MySuperheroes;

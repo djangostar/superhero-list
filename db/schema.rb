@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(version: 2022_11_11_223038) do
 
   create_table "reviews", force: :cascade do |t|
     t.string "input"
-    t.integer "score"
     t.integer "user_id"
     t.integer "superhero_id"
     t.datetime "created_at", precision: 6, null: false

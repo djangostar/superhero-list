@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { UserContext } from '../../context/user';
-import ReviewForm from '../Forms/ReviewForm';
+
 
 const HeroDetails = () => {
   const { heroes } = useContext(UserContext);
@@ -17,10 +17,8 @@ const HeroDetails = () => {
         <h4>Alias: {hero.alias}</h4>
         <h4>Biography: {hero.bio}</h4>
         <h4>Universe: {hero.universe}</h4>
-        <h4>
-          Img_Url: <img src={hero.img_url} alt='superhero' />
-        </h4>
-        <ReviewForm />
+        <h4>Imgage: </h4>
+        <img src={hero.img_url} alt='superhero' />
       </div>
     );
   } else {
