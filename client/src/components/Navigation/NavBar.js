@@ -24,9 +24,6 @@ const NavBar = () => {
       <NavLink to='/all_heroes'>
         <button>All Superheroes</button>
       </NavLink>
-      <NavLink to='/my_heroes'>
-        <button>My Superheroes</button>
-      </NavLink>
       <hr />
     </div>
   );

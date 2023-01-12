@@ -14,10 +14,9 @@ const ReviewForm = () => {
     const data = Object.fromEntries(formData.entries());
     const payload = {
       input: data.input,
-      superhero_id: data.superhero_id,
     };
     addReview(payload);
-    navigate('/my_heroes');
+    navigate('/');
     console.log(payload);
   };
 

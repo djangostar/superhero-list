@@ -43,7 +43,7 @@ class ReviewsController < ApplicationController
   # end
 
   def review_params
-    params.permit(:superhero_id, :user_id, :input)
+    params.require(:review).permit(:superhero_id, :input)
   end
 
  

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../../context/user';
-
+import ReviewContainer from '../../Reviews/ReviewContainer';
 
 const Home = () => {
   const { user, isLoggedIn } = useContext(UserContext);
@@ -12,9 +12,7 @@ const Home = () => {
   const loggedInDisplay = (
     <div>
       <h1>{user.username}'s Page</h1>
-      <h3>
-      
-      </h3>
+      <ReviewContainer />
     </div>
   );
 
